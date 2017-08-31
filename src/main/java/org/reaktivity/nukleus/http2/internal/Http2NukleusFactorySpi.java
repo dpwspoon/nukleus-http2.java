@@ -36,8 +36,10 @@ public final class Http2NukleusFactorySpi implements NukleusFactorySpi
             NukleusBuilder builder)
     {
         Http2Configuration http2Config = new Http2Configuration(config);
-        ServerStreamFactoryBuilder streamFactoryBuilder = new ServerStreamFactoryBuilder(http2Config);
-        return builder.streamFactory(SERVER, streamFactoryBuilder)
+        ServerStreamFactoryBuilder serverStreamFactoryBuilder = new ServerStreamFactoryBuilder(http2Config);
+        ClientStreamFactoryBuilder clientStreamFactoryBuilder = new ClientStreamFactoryBuilder(http2Config);
+        return builder.streamFactory(SERVER, serverStreamFactoryBuilder)
+                      .streamFactory(CLIENT, clientStreamFactoryBuilder)
                       .build();
     }
 }
